@@ -4,22 +4,21 @@ import json
 import time
 from pprint import pprint
 
-def main(fn):
+def main(fn, skip_questions_with_no_answers, toy_output):
     print('Converting DuReader dataset to SQuAD format ...')
     t = time.time()
 
-    # Prepare output
-    prefix = '/'.join(fn.split('/')[:-1])
-    suffix = fn.split('/')[-1]
-    output_fn = prefix + '/squad_' + suffix
+    # Initialize variables
     output = {}
     output['data'] = []
     num_success = 0
     num_failures = 0
+    num_skipped = 0
     total_questions = 0
 
     # Loop through each question
     for json_obj in open(fn, 'r'):
+
         total_questions += 1
 
         # Load DuReader question-set
@@ -79,13 +78,18 @@ def main(fn):
 
         else: # Case 2: Answer does not exist. 
 
-            # Get input para (concat all paragraphs)
-            for doc in duReader['documents']:
-                input_para += ''.join(doc['paragraphs'])
+            if skip_questions_with_no_answers:
+                num_skipped += 1
+                continue
 
-            # Update output
-            qas['answers'] = []
-            qas['is_impossible'] = True
+            else:
+                # Get input para (concat all paragraphs)
+                for doc in duReader['documents']:
+                    input_para += ''.join(doc['paragraphs'])
+
+                # Update output
+                qas['answers'] = []
+                qas['is_impossible'] = True
 
         # Update output
         qas['id'] = duReader['question_id']
@@ -100,13 +104,38 @@ def main(fn):
         output['data'].append(data)
         num_success += 1
 
+        # Exit early if creating toy set
+        if toy_output and (num_success >= 10):
+            break
+
     # Save to JSON file
+    prefix = '/'.join(fn.split('/')[:-1])
+    suffix = fn.split('/')[-1]
+
+    if toy_output:
+        tag = '/squad_toy_'
+    elif skip_questions_with_no_answers:
+        tag = '/squad_withAns_'
+    else:
+        tag = '/squad_'
+
+    output_fn = prefix + tag + suffix
+
     with open(output_fn, 'w') as f:
         json.dump(output, f)
 
-    print(f'Done! Tried to convert {total_questions} questions. \n{num_success} questions successfully converted. \n{num_failures} questions failed to convert. \nConversion took {time.time()-t:.2f}s.')
+    print(f'Done! Tried to convert {total_questions} questions.'
+        f'\n{num_success} questions successfully converted.'
+        f'\n{num_skipped} questions skipped due to having no answers.'
+        f'\n{num_failures} questions failed to convert.'
+        f'\nConversion took {time.time()-t:.2f}s.')
 
 if __name__ == '__main__':
-    '''Replace filename here'''
-    fn = 'duReader_preprocessed/devset/search.dev.json'
-    main(fn)
+    # Replace filename here
+    fn = 'duReader_preprocessed/trainset/search.train.json'
+
+    # Set settings here
+    skip_questions_with_no_answers = True
+    toy_output = False
+
+    main(fn, skip_questions_with_no_answers, toy_output)
