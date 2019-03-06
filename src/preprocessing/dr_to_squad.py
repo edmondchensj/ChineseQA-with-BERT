@@ -4,7 +4,7 @@ import json
 import time
 from pprint import pprint
 
-def main(fn, skip_questions_with_no_answers, toy_output):
+def main(fn, skip_questions_with_no_answers, toy_output, num_samples):
     print('Converting DuReader dataset to SQuAD format ...')
     t = time.time()
 
@@ -105,7 +105,7 @@ def main(fn, skip_questions_with_no_answers, toy_output):
         num_success += 1
 
         # Exit early if creating toy set
-        if toy_output and (num_success >= 10):
+        if toy_output and (num_success >= num_samples):
             break
 
     # Save to JSON file
@@ -113,7 +113,7 @@ def main(fn, skip_questions_with_no_answers, toy_output):
     suffix = fn.split('/')[-1]
 
     if toy_output:
-        tag = '/squad_toy_'
+        tag = f'/squad_toy{num_samples}_'
     elif skip_questions_with_no_answers:
         tag = '/squad_withAns_'
     else:
@@ -136,6 +136,7 @@ if __name__ == '__main__':
 
     # Set settings here
     skip_questions_with_no_answers = True
-    toy_output = False
+    toy_output = True
+    num_samples = 1000 # only valid if toy_output is True
 
-    main(fn, skip_questions_with_no_answers, toy_output)
+    main(fn, skip_questions_with_no_answers, toy_output, num_samples)
