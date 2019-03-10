@@ -22,6 +22,9 @@ We format the DuReader dataset in the format identical to what BERT uses for the
 
 ### Run BERT on the Dataset
 
+```
+Michael put something in here
+```
 
 ## BLEU Scoring
 
