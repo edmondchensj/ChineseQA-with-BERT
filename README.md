@@ -44,5 +44,5 @@ BLEU scoring is an algorithm used to evaluate the quality of text. It has a fair
 The BERT model will output `predictions.json`. 
 
 ```
-python3 src/preprocessing/bleu/bert_bleu.py [path/to/predictions.json] [path/to/preprocessed.json]
+python3 src/bleu/bert_bleu.py [path/to/predictions.json] [path/to/preprocessed.json]
 ```
