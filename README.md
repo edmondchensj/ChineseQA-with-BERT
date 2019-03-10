@@ -1,4 +1,4 @@
-# EECS 496: Advanced Topics in Deep Learning <br/> Group 7 Final Project: QA IR in Chinese with BERT
+# EECS 496: Advanced Topics in Deep Learning <br/> Final Project: Chinese Question Answering with BERT (Baidu DuReader Dataset)
 
 ## Dataset
 The [DuReader dataset](https://github.com/baidu/DuReader) is a machine reading comprehension dataset in Chinese. It is the rough equivalent to the popular [Stanford Question Answering Dataset](https://rajpurkar.github.io/SQuAD-explorer/) (SQuAD) in English. 
@@ -13,8 +13,9 @@ cd DuReader/data && bash download.sh
 ### Preprocess the Dataset
 We format the DuReader dataset in the format identical to what BERT uses for the SQuAD dataset:
 ```
-
+python3 src/preprocessing/dr_to_squad.py [path/to/dureader.processed.json]
 ```
+Additional flags can be found in `dr_to_squad.py` or run `python3 src/preprocessing/dr_to_squad.py --help`.
 
 ## BiDirectional Encoder Representations (BERT)
 
