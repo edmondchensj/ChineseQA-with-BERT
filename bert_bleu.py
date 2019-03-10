@@ -3,8 +3,8 @@ import argparse
 from bleu import Bleu
 
 
-def run(bert_predictions_path, bert_input_path)
-   with open(bert_predictions_path) as f:
+def run(bert_predictions_path, bert_input_path):
+    with open(bert_predictions_path) as f:
         preds = json.load(f)
 
     with open(bert_input_path) as f:
@@ -36,7 +36,7 @@ def run(bert_predictions_path, bert_input_path)
 
     scores = compute_bleu_rouge(preds, answers)
 
-    for score in scores.key():
+    for score in scores.keys():
         print(f'{score}: {scores[score]}')
 
 
