@@ -4,7 +4,7 @@ import json
 import time
 from pprint import pprint
 
-def main(fn, skip_questions_with_no_answers, toy_output, start_pos, num_samples):
+def main(fn, skip_questions_with_no_answers, toy_output, num_samples):
     print('Converting DuReader dataset to SQuAD format ...')
     t = time.time()
 
@@ -92,10 +92,7 @@ def main(fn, skip_questions_with_no_answers, toy_output, start_pos, num_samples)
                 # Update output
                 qas['answers'] = []
                 qas['is_impossible'] = True
-                
-        if num_success < start_pos:
-            num_success += 1
-            continue
+
 
         # Update output
         qas['id'] = duReader['question_id']
@@ -138,12 +135,11 @@ def main(fn, skip_questions_with_no_answers, toy_output, start_pos, num_samples)
 
 if __name__ == '__main__':
     # Replace filename here
-    fn = 'duReader_preprocessed/devset/zhidao.dev.json'
+    fn = 'duReader_preprocessed/trainset/search.train.json'
 
     # Set settings here
     skip_questions_with_no_answers = True
     toy_output = True
-    start_pos = 500
     num_samples = 1000 # only valid if toy_output is True
 
-    main(fn, skip_questions_with_no_answers, toy_output, start_pos, num_samples)
+    main(fn, skip_questions_with_no_answers, toy_output, num_samples)
