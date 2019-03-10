@@ -11,6 +11,10 @@ cd DuReader/data && bash download.sh
 ```
 
 ### Preprocess the Dataset
+We format the DuReader dataset in the format identical to what BERT uses for the SQuAD dataset:
+```
+
+```
 
 ## BiDirectional Encoder Representations (BERT)
 
