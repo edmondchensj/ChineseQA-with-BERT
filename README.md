@@ -13,8 +13,9 @@ cd DuReader/data && bash download.sh
 ### Preprocess the Dataset
 We format the DuReader dataset in the format identical to what BERT uses for the SQuAD dataset:
 ```
-
+python3 src/preprocessing/dr_to_squad.py [path/to/dureader.processed.json]
 ```
+Additional flags can be found in `dr_to_squad.py` or run `python3 src/preprocessing/dr_to_squad.py --help`.
 
 ## BiDirectional Encoder Representations (BERT)
 
