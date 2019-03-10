@@ -1,7 +1,7 @@
 # EECS 496: Advanced Topics in Deep Learning <br/> Final Project: Chinese Question Answering with BERT (Baidu DuReader Dataset)
 
 ## Dataset
-The [DuReader dataset](https://github.com/baidu/DuReader) is a machine reading comprehension (MRC) dataset in Chinese. It is the rough equivalent to the popular [Stanford Question Answering Dataset](https://rajpurkar.github.io/SQuAD-explorer/) (SQuAD) in English. Because DuReader comprises of additional question types beyond SQuAD, namely "yes/no" and entity detection, we ignored those components and only predicted answer spans within the input paragraph, as with regular MRC models. 
+The [DuReader dataset](https://github.com/baidu/DuReader) is a machine reading comprehension (MRC) dataset in Chinese. It is the rough equivalent to the popular [Stanford Question Answering Dataset](https://rajpurkar.github.io/SQuAD-explorer/) (SQuAD) in English. Because DuReader comprises additional question types beyond SQuAD, namely "yes/no" and entity detection, we ignored those components and only predicted answer spans within the input paragraph, as with regular MRC models. 
 
 ### Download the Dataset
 To Download DuReader dataset:
